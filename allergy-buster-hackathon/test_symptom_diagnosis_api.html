@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Symptom Diagnosis API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        min-height: 100px;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #4a6fa5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .response {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+      .loading {
+        display: none;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .diagnosis-result {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+      }
+      .diagnosis-result h3 {
+        margin-top: 0;
+        color: #4a6fa5;
+      }
+      .section {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+      .section h4 {
+        margin-top: 0;
+        color: #666;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      .severity {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-weight: bold;
+        margin-left: 10px;
+      }
+      .severity.high {
+        background-color: #ffdddd;
+        color: #cc0000;
+      }
+      .severity.medium {
+        background-color: #ffffcc;
+        color: #cc7700;
+      }
+      .severity.low {
+        background-color: #ddffdd;
+        color: #007700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test Symptom Diagnosis API</h1>
+    <div class="container">
+      <div class="form-group">
+        <label for="symptoms">Describe your symptoms:</label>
+        <textarea
+          id="symptoms"
+          placeholder="Example: I have a runny nose, itchy eyes, and sneezing that gets worse when I'm outside."
+        ></textarea>
+      </div>
+      <button id="diagnose-btn">Diagnose Symptoms</button>
+      <div class="loading" id="loading">Analyzing symptoms...</div>
+      <div id="result-container"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("diagnose-btn")
+        .addEventListener("click", async function () {
+          const symptomsText = document.getElementById("symptoms").value.trim();
+          if (!symptomsText) {
+            alert("Please describe your symptoms");
+            return;
+          }
+
+          const loading = document.getElementById("loading");
+          const resultContainer = document.getElementById("result-container");
+
+          loading.style.display = "block";
+          resultContainer.innerHTML = "";
+
+          try {
+            const apiUrl = "http://localhost:8000/api/chatbot/diagnose/";
+
+            console.log("Sending request to Symptom Diagnosis API");
+
+            // Use fetch with mode: 'no-cors' to bypass CORS issues
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Origin: "http://localhost:8080",
+              },
+              body: JSON.stringify({ symptoms: symptomsText }),
+              mode: "cors",
+              credentials: "include",
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+              displayDiagnosisResults(data, resultContainer);
+            } else {
+              resultContainer.innerHTML = `<div class="response">Error: ${
+                data.message || "Failed to diagnose symptoms"
+              }</div>`;
+            }
+          } catch (error) {
+            console.error("Symptom Diagnosis API error:", error);
+            resultContainer.innerHTML = `<div class="response">Error: ${error.message}</div>`;
+          } finally {
+            loading.style.display = "none";
+          }
+        });
+
+      function displayDiagnosisResults(data, container) {
+        let html = `
+                <div class="diagnosis-result">
+                    <h3>Diagnosis Results</h3>
+            `;
+
+        // Add possible conditions
+        if (data.possible_conditions && data.possible_conditions.length > 0) {
+          html += '<div class="section"><h4>Possible Conditions:</h4><ul>';
+          data.possible_conditions.forEach((condition) => {
+            const severityClass =
+              condition.probability >= 0.7
+                ? "high"
+                : condition.probability >= 0.4
+                ? "medium"
+                : "low";
+            const severityText =
+              condition.probability >= 0.7
+                ? "High"
+                : condition.probability >= 0.4
+                ? "Medium"
+                : "Low";
+
+            html += `<li>${condition.name} <span class="severity ${severityClass}">${severityText}</span></li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add recommendations
+        if (data.recommendations && data.recommendations.length > 0) {
+          html += '<div class="section"><h4>Recommendations:</h4><ul>';
+          data.recommendations.forEach((recommendation) => {
+            html += `<li>${recommendation}</li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add medications
+        if (
+          data.suggested_medications &&
+          data.suggested_medications.length > 0
+        ) {
+          html += '<div class="section"><h4>Suggested Medications:</h4><ul>';
+          data.suggested_medications.forEach((medication) => {
+            html += `<li>${medication}</li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add when to see a doctor
+        if (data.when_to_see_doctor) {
+          html += `<div class="section"><h4>When to See a Doctor:</h4><p>${data.when_to_see_doctor}</p></div>`;
+        }
+
+        html += "</div>";
+        container.innerHTML = html;
+      }
+
+      // Add event listener for Enter key
+      document
+        .getElementById("symptoms")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter" && e.ctrlKey) {
+            document.getElementById("diagnose-btn").click();
+          }
+        });
+    </script>
+  </body>
+</html>

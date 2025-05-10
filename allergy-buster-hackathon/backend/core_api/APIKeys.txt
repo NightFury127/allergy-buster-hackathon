@@ -1,0 +1,2 @@
+MistralAPIKey: 1hh7OgHCIhXxXcNgP7Lq7vihsLNwo0sy
+GeminiAPIKey: AIzaSyDJC5a882ruaJN1-pjQzdiG1dPGMN3Q8Jw

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Chat API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #4a6fa5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .response {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+      .loading {
+        display: none;
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test Chat API</h1>
+    <div class="container">
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea
+          id="message"
+          rows="4"
+          placeholder="Enter your message here..."
+        ></textarea>
+      </div>
+      <button id="send-btn">Send Message</button>
+      <div class="loading" id="loading">Loading...</div>
+      <div class="response" id="response"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("send-btn")
+        .addEventListener("click", async function () {
+          const message = document.getElementById("message").value.trim();
+          if (!message) {
+            alert("Please enter a message");
+            return;
+          }
+
+          const loading = document.getElementById("loading");
+          const response = document.getElementById("response");
+
+          loading.style.display = "block";
+          response.textContent = "";
+
+          try {
+            // Get the base URL from the current location
+            const baseUrl =
+              window.location.protocol + "//" + window.location.host;
+            const apiUrl = "http://localhost:8000/api/chatbot/chat/"; // Direct to backend
+
+            console.log("Sending message to Chat API:", apiUrl);
+
+            const res = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Origin: "http://localhost:8080",
+              },
+              body: JSON.stringify({ message: message }),
+              mode: "cors",
+              credentials: "include",
+            });
+
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+
+            const data = await res.json();
+
+            if (data.status === "success") {
+              response.textContent = `Model: ${data.model_used}\n\nResponse: ${data.reply}`;
+            } else {
+              throw new Error(data.message || "Failed to get response");
+            }
+          } catch (error) {
+            console.error("Chat API error:", error);
+            response.textContent = `Error: ${error.message}`;
+          } finally {
+            loading.style.display = "none";
+          }
+        });
+    </script>
+  </body>
+</html>

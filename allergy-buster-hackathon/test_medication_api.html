@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Medication API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #4a6fa5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .response {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+      .loading {
+        display: none;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .medication-detail {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+      }
+      .medication-detail h3 {
+        margin-top: 0;
+        color: #4a6fa5;
+      }
+      .section {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+      .section h4 {
+        margin-top: 0;
+        color: #666;
+      }
+      ul {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test Medication API</h1>
+    <div class="container">
+      <div class="form-group">
+        <label for="medication">Medication Name:</label>
+        <input
+          type="text"
+          id="medication"
+          placeholder="Enter medication name (e.g., cetirizine, loratadine, diphenhydramine)"
+        />
+      </div>
+      <button id="search-btn" type="button">Search Medication</button>
+      <div class="loading" id="loading">Loading...</div>
+      <div id="result-container"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("search-btn")
+        .addEventListener("click", async function () {
+          const medicationName = document
+            .getElementById("medication")
+            .value.trim();
+          if (!medicationName) {
+            alert("Please enter a medication name");
+            return;
+          }
+
+          const loading = document.getElementById("loading");
+          const resultContainer = document.getElementById("result-container");
+
+          loading.style.display = "block";
+          resultContainer.innerHTML = "";
+
+          try {
+            // Get the base URL from the current location
+            const baseUrl =
+              window.location.protocol + "//" + window.location.host;
+            const apiUrl =
+              "http://localhost:8000/api/chatbot/medication/?name=" +
+              encodeURIComponent(medicationName);
+
+            console.log("Sending request to Medication API:", apiUrl);
+
+            // Use XMLHttpRequest instead of fetch
+            const data = await new Promise((resolve, reject) => {
+              const xhr = new XMLHttpRequest();
+              xhr.open("GET", apiUrl, true);
+              xhr.setRequestHeader("Origin", "http://localhost:8080");
+              xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                  resolve(JSON.parse(xhr.responseText));
+                } else {
+                  reject(new Error(`HTTP error! Status: ${xhr.status}`));
+                }
+              };
+              xhr.onerror = function () {
+                reject(new Error("Network error"));
+              };
+              xhr.send();
+            });
+
+            if (data.results && data.results.length > 0) {
+              displayMedicationInfo(data.results[0], resultContainer);
+            } else {
+              resultContainer.innerHTML =
+                '<div class="response">No medication information found</div>';
+            }
+          } catch (error) {
+            console.error("Medication API error:", error);
+            resultContainer.innerHTML = `<div class="response">Error: ${error.message}</div>`;
+          } finally {
+            loading.style.display = "none";
+          }
+        });
+
+      function displayMedicationInfo(medication, container) {
+        let html = `
+                <div class="medication-detail">
+                    <h3>${medication.name}</h3>
+                    <div class="medication-info">
+            `;
+
+        // Add ingredients if available
+        if (medication.ingredients && medication.ingredients.length > 0) {
+          html += '<div class="section"><h4>Active Ingredients:</h4><ul>';
+          medication.ingredients.forEach((ingredient) => {
+            html += `<li>${ingredient.name}</li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add drug classes if available
+        if (medication.drug_classes && medication.drug_classes.length > 0) {
+          html += '<div class="section"><h4>Drug Classes:</h4><ul>';
+          medication.drug_classes.forEach((drugClass) => {
+            html += `<li>${drugClass}</li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add related medications if available
+        if (
+          medication.related_medications &&
+          medication.related_medications.length > 0
+        ) {
+          html += '<div class="section"><h4>Related Medications:</h4><ul>';
+          medication.related_medications.forEach((relatedMed) => {
+            html += `<li>${relatedMed.name}</li>`;
+          });
+          html += "</ul></div>";
+        }
+
+        // Add RxCUI if available
+        if (medication.rxcui) {
+          html += `<div class="section"><h4>RxCUI:</h4><p>${medication.rxcui}</p></div>`;
+        }
+
+        html += "</div></div>";
+        container.innerHTML = html;
+      }
+
+      // Add event listener for Enter key
+      document
+        .getElementById("medication")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            document.getElementById("search-btn").click();
+          }
+        });
+    </script>
+  </body>
+</html>

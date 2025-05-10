@@ -62,6 +62,9 @@ A comprehensive allergy management system that helps users track, manage, and un
    ```
    DEBUG=True
    SECRET_KEY=your_secret_key_here
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+   DATABASE_URL=sqlite:///db.sqlite3
    ```
 
 5. Run migrations:
@@ -79,6 +82,7 @@ A comprehensive allergy management system that helps users track, manage, and un
 7. Test the server:
    ```bash
    python test_server.py
+   python test_medication_api.py
    ```
 
 #### Frontend Setup
@@ -95,6 +99,7 @@ A comprehensive allergy management system that helps users track, manage, and un
 
 - Chat API: `POST /api/chatbot/chat/`
 - OCR API: `POST /api/chatbot/ocr/`
+- Medication API: `GET /api/chatbot/medication/?name={medication_name}`
 - Test API: `GET /api/chatbot/test-env/`
 
 ## Troubleshooting

@@ -1,6 +1,11 @@
-django
-djangorestframework
-openai
-pillow
-mysqlclient
-django-cors-headers
+django>=4.2.0
+djangorestframework>=3.14.0
+openai>=0.27.0
+pillow>=9.5.0
+mysqlclient>=2.1.1
+django-cors-headers>=4.0.0
+pytesseract>=0.3.10
+transformers>=4.28.0
+torch>=2.0.0
+requests>=2.28.2
+python-dotenv>=1.0.0

@@ -46,11 +46,21 @@ if errorlevel 1 (
 
 :: Install requirements if needed
 echo Checking requirements...
-pip install -r ..\..\requirements.txt
+pip install -r ..\..\allergy-buster-hackathon\requirements.txt
 if errorlevel 1 (
     echo Error: Failed to install requirements
     pause
     exit /b 1
+)
+
+:: Install Tesseract OCR if needed
+echo Checking for Tesseract OCR...
+where tesseract >nul 2>&1
+if errorlevel 1 (
+    echo Warning: Tesseract OCR is not installed or not in PATH
+    echo Please install Tesseract OCR from https://github.com/UB-Mannheim/tesseract/wiki
+    echo Press any key to continue anyway...
+    pause >nul
 )
 
 :: Check if .env file exists
@@ -58,6 +68,9 @@ if not exist ".env" (
     echo Creating .env file...
     echo DEBUG=True > .env
     echo SECRET_KEY=django-insecure-your-secret-key-here >> .env
+    echo ALLOWED_HOSTS=localhost,127.0.0.1 >> .env
+    echo CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000 >> .env
+    echo DATABASE_URL=sqlite:///db.sqlite3 >> .env
 )
 
 :: Run migrations
@@ -100,4 +113,4 @@ echo Press Ctrl+C to stop the server
 echo.
 
 :: Keep the window open
-pause 
+pause

@@ -10,14 +10,14 @@
         /* Your original CSS remains exactly the same */
         /* Color Variables */
         :root {
-            --primary: #4A6FA5; 
-            --secondary: #6B8C42; 
+            --primary: #4A6FA5;
+            --secondary: #6B8C42;
             --accent: #FF7E5F;
-            --light: #F8F9FA; 
-            --dark: #212529; 
+            --light: #F8F9FA;
+            --dark: #212529;
             --danger: #DC3545;
-            --warning: #FFC107; 
-            --info: #17A2B8; 
+            --warning: #FFC107;
+            --info: #17A2B8;
             --success: #28A745;
         }
 
@@ -131,12 +131,12 @@
             padding: 20px 0;
             border-radius: 0 0 30px 30px;
         }
-        
+
         .logo {
             margin-left: 0;
             margin-bottom: 10px;
         }
-        
+
         nav ul {
             flex-direction: column;
             gap: 10px;
@@ -144,7 +144,7 @@
             margin-right: 0;
             margin-left: 30px;
         }
-        
+
         nav a {
             padding: 6px 12px;
         }
@@ -181,7 +181,7 @@
         }
 
         /* Hero Section */
-        
+
         .hero {
             margin-bottom: 40px;
             text-align: center;
@@ -367,6 +367,120 @@
             border-bottom: 1px dashed #eee;
         }
 
+        /* OCR Scanner Results */
+        .result-section {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .result-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .allergens-section h3 {
+            color: var(--danger);
+        }
+
+        .medications-section h3 {
+            color: var(--info);
+        }
+
+        .ai-analysis-section h3 {
+            color: var(--secondary);
+        }
+
+        .allergen-list, .medication-list {
+            list-style: none;
+        }
+
+        /* Raw text box styling */
+        .raw-text-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* Ingredients text styling */
+        .ingredients-text {
+            background-color: #fff;
+            border: 3px solid #ff7e5f; /* Accent color for more visibility */
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            white-space: pre-wrap;
+            min-height: 120px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #000; /* Black text for better contrast */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            word-break: break-word;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative;
+            z-index: 100; /* Higher z-index to ensure visibility */
+        }
+
+        /* Add a highlight effect when updated */
+        .ingredients-text.highlighted {
+            animation: highlight-pulse 2s ease-in-out;
+            border-color: #28A745; /* Success green */
+            background-color: #f0fff4; /* Light green background */
+        }
+
+        @keyframes highlight-pulse {
+            0% { background-color: #fff; }
+            50% { background-color: #d4edda; }
+            100% { background-color: #f0fff4; }
+        }
+
+        .allergen-item, .medication-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .allergen-item.warning {
+            color: var(--danger);
+        }
+
+        .ai-analysis {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .scan-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
         .medication-name {
             font-weight: 600;
         }
@@ -536,24 +650,24 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             nav ul {
                 flex-direction: column;
                 gap: 10px;
                 align-items: center;
             }
-            
+
             .hero h2 {
                 font-size: 2rem;
             }
-            
+
             .tabs {
                 overflow-x: auto;
                 white-space: nowrap;
                 display: block;
                 padding-bottom: 10px;
             }
-            
+
             .tab-btn {
                 display: inline-block;
             }
@@ -1220,7 +1334,7 @@ nav {
     nav ul {
         margin-right: auto; /* Pushes auth buttons to the right */
     }
-    
+
 
     .auth-buttons {
         display: flex;
@@ -1310,7 +1424,7 @@ nav {
     align-items: center;
 }
 
-.scanner-preview video, 
+.scanner-preview video,
 .scanner-preview canvas {
     max-width: 100%;
     max-height: 400px;
@@ -1843,26 +1957,26 @@ nav {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .diary-filters {
         flex-direction: column;
     }
-    
+
     .filter-group {
         min-width: 100%;
     }
-    
+
     .entries-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
-    
+
     .form-row {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .symptoms-checkboxes {
         grid-template-columns: 1fr 1fr;
     }
@@ -1872,7 +1986,7 @@ nav {
     .symptoms-checkboxes {
         grid-template-columns: 1fr;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
@@ -2176,18 +2290,18 @@ nav {
     .telehealth-options {
         grid-template-columns: 1fr;
     }
-    
+
     .doctor-card.nearby {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .doctor-actions {
         width: 100%;
         margin-top: 15px;
         justify-content: flex-end;
     }
-    
+
     .results-summary {
         flex-direction: column;
         gap: 15px;
@@ -2517,25 +2631,25 @@ nav {
         align-items: flex-start;
         gap: 15px;
     }
-    
+
     .medication-actions {
         width: 100%;
         justify-content: flex-end;
     }
-    
+
     .filter-options {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .interaction-select {
         flex-direction: column;
     }
-    
+
     .interaction-selector {
         width: 100%;
     }
-    
+
     .modal-content {
         margin: 20% auto;
         width: 90%;
@@ -2877,16 +2991,16 @@ textarea {
         width: 90%;
         padding: 20px;
     }
-    
+
     .form-row {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .symptoms-checkboxes {
         grid-template-columns: 1fr;
     }
-    
+
     .medication-entry-fields {
         grid-template-columns: 1fr;
     }
@@ -3319,7 +3433,7 @@ textarea {
             <h2 class="section-title">Symptom Checker</h2>
             <div class="symptom-checker">
                 <h3>Where are you experiencing symptoms?</h3>
-                
+
                 <div class="body-map-wrapper">
                     <!-- Interactive Areas - Made denser with tighter spacing -->
                     <div class="body-area head" data-area="head"></div>
@@ -3332,7 +3446,7 @@ textarea {
                     <div class="body-area left-leg" data-area="left-leg"></div>
                     <div class="body-area right-leg" data-area="right-leg"></div>
                 </div>
-                
+
                 <div class="question">
                     <h3>What symptoms are you experiencing?</h3>
                     <div class="options">
@@ -3344,7 +3458,7 @@ textarea {
                         <div class="option-btn">Difficulty breathing</div>
                     </div>
                 </div>
-                
+
                 <div class="question">
                     <h3>When did symptoms start?</h3>
                     <div class="options">
@@ -3354,7 +3468,7 @@ textarea {
                         <div class="option-btn">Ongoing for weeks</div>
                     </div>
                 </div>
-                
+
                 <div class="navigation-btns">
                     <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
                     <button class="btn btn-primary" id="next-btn">Next</button>
@@ -3364,14 +3478,14 @@ textarea {
         <!-- Medications Section -->
 <div id="medications" class="content-section">
     <h2 class="section-title">Medication Management</h2>
-    
+
     <div class="medication-tabs">
         <div class="tabs">
             <button class="tab-btn active" data-tab="my-meds">My Medications</button>
             <button class="tab-btn" data-tab="med-finder">Medication Finder</button>
             <button class="tab-btn" data-tab="interactions">Drug Interactions</button>
         </div>
-        
+
         <!-- My Medications Tab -->
         <div id="my-meds" class="tab-content active">
             <div class="medication-header">
@@ -3380,7 +3494,7 @@ textarea {
                     <i class="fas fa-plus"></i> Add Medication
                 </button>
             </div>
-            
+
             <div class="medication-list" id="current-medications">
                 <!-- Medication cards will be added here dynamically -->
                 <div class="medication-card">
@@ -3401,7 +3515,7 @@ textarea {
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="medication-card">
                     <div class="medication-info">
                         <div class="medication-name">Fluticasone (Flonase)</div>
@@ -3421,7 +3535,7 @@ textarea {
                     </div>
                 </div>
             </div>
-            
+
             <div class="refill-reminder">
                 <h3><i class="fas fa-bell"></i> Refill Reminders</h3>
                 <div class="reminder-list">
@@ -3437,14 +3551,14 @@ textarea {
                 </div>
             </div>
         </div>
-        
+
         <!-- Medication Finder Tab -->
         <div id="med-finder" class="tab-content">
             <div class="search-container">
                 <input type="text" class="search-input" id="med-search" placeholder="Search for medications...">
                 <button class="search-btn" id="search-meds"><i class="fas fa-search"></i></button>
             </div>
-            
+
             <div class="filter-options">
                 <h4>Filter by:</h4>
                 <select id="med-type">
@@ -3454,17 +3568,17 @@ textarea {
                     <option value="eye">Eye Drops</option>
                     <option value="emergency">Emergency</option>
                 </select>
-                
+
                 <select id="med-price">
                     <option value="">Any Price</option>
                     <option value="low">$ (Under $10)</option>
                     <option value="medium">$$ ($10-$50)</option>
                     <option value="high">$$$ (Over $50)</option>
                 </select>
-                
+
                 <button class="btn btn-secondary" id="apply-filters">Apply Filters</button>
             </div>
-            
+
             <div class="medication-results" id="medication-results">
                 <!-- Results will be populated here -->
                 <div class="medication-result-card">
@@ -3490,7 +3604,7 @@ textarea {
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="medication-result-card">
                     <div class="medication-image">
                         <i class="fas fa-spray-can"></i>
@@ -3516,39 +3630,39 @@ textarea {
                 </div>
             </div>
         </div>
-        
+
         <!-- Drug Interactions Tab -->
         <div id="interactions" class="tab-content">
             <div class="interaction-checker">
                 <h3>Check for Drug Interactions</h3>
                 <p>Select medications from your list to check for potential interactions:</p>
-                
+
                 <div class="interaction-select">
                     <select id="med1" class="interaction-selector">
                         <option value="">Select first medication</option>
                         <option value="cetirizine">Cetirizine (Zyrtec)</option>
                         <option value="fluticasone">Fluticasone (Flonase)</option>
                     </select>
-                    
+
                     <select id="med2" class="interaction-selector">
                         <option value="">Select second medication</option>
                         <option value="cetirizine">Cetirizine (Zyrtec)</option>
                         <option value="fluticasone">Fluticasone (Flonase)</option>
                         <option value="diphenhydramine">Diphenhydramine (Benadryl)</option>
                     </select>
-                    
+
                     <button class="btn btn-primary" id="check-interactions">
                         <i class="fas fa-search"></i> Check Interactions
                     </button>
                 </div>
-                
+
                 <div class="interaction-results" id="interaction-results">
                     <!-- Results will be shown here -->
                     <div class="no-interaction" style="display: none;">
                         <i class="fas fa-check-circle"></i>
                         <p>No known interactions between these medications.</p>
                     </div>
-                    
+
                     <div class="interaction-warning" style="display: none;">
                         <i class="fas fa-exclamation-triangle"></i>
                         <div class="warning-content">
@@ -3563,7 +3677,7 @@ textarea {
                     </div>
                 </div>
             </div>
-            
+
             <div class="interaction-info">
                 <h3>Common Allergy Medication Interactions</h3>
                 <div class="interaction-card">
@@ -3577,19 +3691,19 @@ textarea {
             </div>
         </div>
     </div>
-    
+
     <!-- Add Medication Modal -->
     <div class="modal" id="add-med-modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h3><i class="fas fa-pills"></i> Add New Medication</h3>
-            
+
             <form id="medication-form">
                 <div class="form-group">
                     <label for="med-name">Medication Name</label>
                     <input type="text" id="med-name" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="med-type">Type</label>
                     <select id="med-type" required>
@@ -3602,12 +3716,12 @@ textarea {
                         <option value="other">Other</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="med-dosage">Dosage</label>
                     <input type="text" id="med-dosage" placeholder="e.g., 10mg tablet" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="med-schedule">Schedule</label>
                     <select id="med-schedule" required>
@@ -3618,17 +3732,17 @@ textarea {
                         <option value="seasonal">Seasonal</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="med-start">Start Date</label>
                     <input type="date" id="med-start" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="med-notes">Notes</label>
                     <textarea id="med-notes" rows="3"></textarea>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary">Save Medication</button>
             </form>
         </div>
@@ -3654,7 +3768,7 @@ textarea {
                     <i class="fas fa-chart-pie"></i> View Statistics
                 </button>
             </div>
-            
+
             <div class="diary-filters">
                 <div class="filter-group">
                     <label for="time-filter">Time Period</label>
@@ -3667,7 +3781,7 @@ textarea {
                         <option value="all">All Entries</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <label for="severity-filter">Severity</label>
                     <select id="severity-filter" class="filter-select">
@@ -3677,7 +3791,7 @@ textarea {
                         <option value="severe">Severe</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <label for="symptom-filter">Symptoms</label>
                     <select id="symptom-filter" class="filter-select">
@@ -3690,7 +3804,7 @@ textarea {
                         <option value="breathing">Breathing Issues</option>
                     </select>
                 </div>
-                
+
                 <button class="btn btn-secondary" id="apply-filters-btn">
                     <i class="fas fa-filter"></i> Apply
                 </button>
@@ -3708,7 +3822,7 @@ textarea {
                     <span id="stats-period-label">Last 30 Days</span>
                 </div>
             </div>
-            
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value" id="total-entries">0</div>
@@ -3727,15 +3841,15 @@ textarea {
                     <div class="stat-label">Most Common Trigger</div>
                 </div>
             </div>
-            
+
             <div class="chart-container">
                 <canvas id="severity-chart"></canvas>
             </div>
-            
+
             <div class="chart-container">
                 <canvas id="symptoms-chart"></canvas>
             </div>
-            
+
             <button class="btn btn-outline" id="back-to-entries-btn">
                 <i class="fas fa-arrow-left"></i> Back to Entries
             </button>
@@ -3750,7 +3864,7 @@ textarea {
                     <span id="entries-period">(Last 30 days)</span>
                 </div>
             </div>
-            
+
             <div class="diary-entries" id="diary-entries-container">
                 <!-- Entries will be loaded here dynamically -->
                 <div class="no-entries" id="no-entries-message">
@@ -3758,7 +3872,7 @@ textarea {
                     <p>No entries found. Create your first entry to start tracking your allergies.</p>
                 </div>
             </div>
-            
+
             <div class="diary-footer">
                 <button class="btn btn-secondary" id="export-diary-btn">
                     <i class="fas fa-file-export"></i> Export Diary
@@ -3773,16 +3887,16 @@ textarea {
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h3 id="modal-title"><i class="fas fa-book-medical"></i> New Diary Entry</h3>
-        
+
         <form id="entry-form">
             <input type="hidden" id="entry-id">
-            
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="entry-date">Date & Time</label>
                     <input type="datetime-local" id="entry-date" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="entry-severity">Severity</label>
                     <select id="entry-severity" required>
@@ -3793,7 +3907,7 @@ textarea {
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label>Symptoms</label>
                 <div class="symptoms-checkboxes">
@@ -3828,22 +3942,22 @@ textarea {
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="entry-triggers">Potential Triggers</label>
                 <input type="text" id="entry-triggers" placeholder="e.g., pollen, pet dander, certain foods">
             </div>
-            
+
             <div class="form-group">
                 <label for="entry-location">Location</label>
                 <input type="text" id="entry-location" placeholder="Where were you when symptoms started?">
             </div>
-            
+
             <div class="form-group">
                 <label for="entry-notes">Notes</label>
                 <textarea id="entry-notes" rows="4" placeholder="Describe your symptoms, any patterns you notice, or additional details"></textarea>
             </div>
-            
+
             <div class="form-group">
                 <label>Medications Taken</label>
                 <div class="medications-list" id="medications-list">
@@ -3853,7 +3967,7 @@ textarea {
                     <i class="fas fa-plus"></i> Add Medication
                 </button>
             </div>
-            
+
             <div class="form-actions">
                 <button type="button" class="btn btn-outline" id="cancel-entry-btn">Cancel</button>
                 <button type="submit" class="btn btn-primary" id="save-entry-btn">Save Entry</button>
@@ -3867,23 +3981,23 @@ textarea {
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h3><i class="fas fa-pills"></i> Add Medication</h3>
-        
+
         <form id="medication-form">
             <div class="form-group">
                 <label for="med-name">Medication Name</label>
                 <input type="text" id="med-name" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="med-dosage">Dosage</label>
                 <input type="text" id="med-dosage" placeholder="e.g., 10mg tablet, 2 sprays" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="med-time">Time Taken</label>
                 <input type="time" id="med-time" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="med-effectiveness">Effectiveness</label>
                 <select id="med-effectiveness">
@@ -3893,7 +4007,7 @@ textarea {
                     <option value="very-effective">Very Effective</option>
                 </select>
             </div>
-            
+
             <div class="form-actions">
                 <button type="button" class="btn btn-outline" id="cancel-med-btn">Cancel</button>
                 <button type="submit" class="btn btn-primary">Add Medication</button>
@@ -3907,7 +4021,7 @@ textarea {
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h3><i class="fas fa-file-export"></i> Export Diary</h3>
-        
+
         <div class="export-options">
             <div class="export-option">
                 <input type="radio" id="export-pdf" name="export-format" value="pdf" checked>
@@ -3918,7 +4032,7 @@ textarea {
                 </label>
             </div>
         </div>
-        
+
         <div class="export-range">
             <label>Date Range</label>
             <select id="export-range">
@@ -3930,7 +4044,7 @@ textarea {
                 <option value="custom">Custom Range</option>
             </select>
         </div>
-        
+
         <div class="export-actions">
             <button type="button" class="btn btn-outline" id="cancel-export-btn">Cancel</button>
             <button type="button" class="btn btn-primary" id="confirm-export-btn">Export</button>
@@ -3946,11 +4060,11 @@ textarea {
                 <h3>Scan Product Labels for Allergens</h3>
                 <p>Use your camera or upload an image to check for ingredients that may trigger your allergies</p>
             </div>
-            
+
             <div class="scanner-guide">
                 <p><strong>How it works:</strong> Point your camera at the ingredients list or upload a clear photo. We'll analyze the text and highlight any potential allergens based on your profile.</p>
             </div>
-            
+
             <div class="scanner-interface">
                 <div class="scanner-preview" id="scanner-preview">
                     <video id="scanner-video" autoplay playsinline></video>
@@ -3960,12 +4074,12 @@ textarea {
                         <p>Camera preview will appear here</p>
                     </div>
                 </div>
-                
+
                 <div class="scanner-loading" id="scanner-loading">
                     <div class="loader"></div>
                     <p>Processing image...</p>
                 </div>
-                
+
                 <div class="scanner-controls">
                     <button class="btn btn-primary" id="start-scanner">
                         <i class="fas fa-camera"></i> Start Scanner
@@ -3979,20 +4093,25 @@ textarea {
                     <input type="file" id="file-input" accept="image/*" style="display:none;">
                 </div>
             </div>
-            
+
             <div class="scan-results" id="scan-results" style="display:none;">
                 <h3><i class="fas fa-search"></i> Scan Results</h3>
                 <div class="results-container">
                     <div class="detected-text">
-                        <h4>Detected Ingredients:</h4>
-                        <div id="ingredients-text" class="ingredients-text"></div>
+                        <h4><i class="fas fa-file-alt"></i> Raw Extracted Text:</h4>
+                        <div id="raw-text" class="raw-text-box"></div>
+
+                        <h4><i class="fas fa-list"></i> Detected Ingredients/Text:</h4>
+                        <div id="ingredients-text" class="ingredients-text">
+                            <!-- This text will be filled by JavaScript -->
+                        </div>
                     </div>
                     <div class="allergy-matches">
-                        <h4>Allergy Matches:</h4>
+                        <h4><i class="fas fa-exclamation-triangle"></i> Allergen Analysis Results:</h4>
                         <div id="allergy-matches"></div>
                     </div>
                 </div>
-                
+
                 <div class="scan-actions" style="margin-top: 20px; text-align: center;">
                     <button class="btn btn-primary" id="scan-again">
                         <i class="fas fa-redo"></i> Scan Another Product
@@ -4006,11 +4125,11 @@ textarea {
        <!-- Telehealth Section -->
 <div id="telehealth" class="content-section">
     <h2 class="section-title">Connect with Allergy Specialists</h2>
-    
+
     <div class="telehealth-intro">
         <p>Get personalized allergy care through virtual consultations or find specialists near you</p>
     </div>
-    
+
     <div class="telehealth-options">
         <div class="telehealth-card virtual">
             <div class="telehealth-icon">
@@ -4031,14 +4150,14 @@ textarea {
                 </div>
             </div>
         </div>
-        
+
         <div class="telehealth-card in-person">
             <div class="telehealth-icon">
                 <i class="fas fa-map-marker-alt"></i>
             </div>
             <h3>Find Nearby Specialists</h3>
             <p>Search for allergy clinics and immunologists in your area</p>
-            
+
             <div class="location-search">
                 <div class="search-container">
                     <input type="text" class="search-input" id="location-input" placeholder="Enter your location or zip code">
@@ -4048,7 +4167,7 @@ textarea {
                     <i class="fas fa-location-arrow"></i> Use Current Location
                 </button>
             </div>
-            
+
             <div class="distance-options">
                 <span>Search radius:</span>
                 <select id="distance-select">
@@ -4060,14 +4179,14 @@ textarea {
             </div>
         </div>
     </div>
-    
+
     <!-- Nearby Doctors Results -->
     <div class="nearby-results" id="nearby-results" style="display: none;">
         <h3 class="section-subtitle">
             <i class="fas fa-map-pin"></i> Allergy Specialists Near You
             <span id="results-location" style="font-size: 0.8em; color: #666;"></span>
         </h3>
-        
+
         <div class="results-summary">
             <div class="summary-item">
                 <i class="fas fa-hospital"></i>
@@ -4082,7 +4201,7 @@ textarea {
                 Avg. Rating: <span id="avg-rating">4.7</span>
             </div>
         </div>
-        
+
         <div class="map-container">
             <div class="map-placeholder" id="map-placeholder">
                 <i class="fas fa-map-marked-alt"></i>
@@ -4100,7 +4219,7 @@ textarea {
                 </div>
             </div>
         </div>
-        
+
         <div class="doctor-list">
             <!-- Sample Nearby Doctor 1 -->
             <div class="doctor-card nearby">
@@ -4110,8 +4229,8 @@ textarea {
                         <h3>Dr. Sarah Smith</h3>
                         <p class="specialty">Allergy & Immunology Specialist</p>
                         <p class="location">
-                            <i class="fas fa-map-marker-alt"></i> 
-                            <span class="distance">1.2 miles</span> - 
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="distance">1.2 miles</span> -
                             Manhattan Allergy Associates
                         </p>
                         <div class="rating">
@@ -4132,7 +4251,7 @@ textarea {
                     </button>
                 </div>
             </div>
-            
+
             <!-- Sample Nearby Doctor 2 -->
             <div class="doctor-card nearby">
                 <div class="doctor-info">
@@ -4141,8 +4260,8 @@ textarea {
                         <h3>Dr. Michael Johnson</h3>
                         <p class="specialty">Pediatric Allergist</p>
                         <p class="location">
-                            <i class="fas fa-map-marker-alt"></i> 
-                            <span class="distance">2.5 miles</span> - 
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="distance">2.5 miles</span> -
                             NYC Children's Allergy Center
                         </p>
                         <div class="rating">
@@ -4163,7 +4282,7 @@ textarea {
                     </button>
                 </div>
             </div>
-            
+
             <!-- Sample Nearby Doctor 3 -->
             <div class="doctor-card nearby">
                 <div class="doctor-info">
@@ -4172,8 +4291,8 @@ textarea {
                         <h3>Dr. Jennifer Lee</h3>
                         <p class="specialty">Allergy & Asthma Specialist</p>
                         <p class="location">
-                            <i class="fas fa-map-marker-alt"></i> 
-                            <span class="distance">3.1 miles</span> - 
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="distance">3.1 miles</span> -
                             Asthma & Allergy Care of New York
                         </p>
                         <div class="rating">
@@ -4195,15 +4314,15 @@ textarea {
                 </div>
             </div>
         </div>
-        
+
         <div class="pagination">
             <button class="btn btn-outline" disabled>Previous</button>
             <span>Page 1 of 3</span>
             <button class="btn btn-outline">Next</button>
         </div>
     </div>
-    
-    
+
+
 
         <!-- Medication Reminders Section -->
         <div class="reminder-section">
@@ -4213,7 +4332,7 @@ textarea {
                     <h3>Your Scheduled Medications</h3>
                     <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Reminder</button>
                 </div>
-                
+
                 <div class="reminder-item">
                     <div class="reminder-info">
                         <div class="medication-name">Cetirizine (Zyrtec)</div>
@@ -4225,7 +4344,7 @@ textarea {
                         <i class="fas fa-trash" title="Delete"></i>
                     </div>
                 </div>
-                
+
                 <div class="reminder-item">
                     <div class="reminder-info">
                         <div class="medication-name">Fluticasone (Flonase)</div>
@@ -4237,7 +4356,7 @@ textarea {
                         <i class="fas fa-trash" title="Delete"></i>
                     </div>
                 </div>
-                
+
                 <div class="reminder-item">
                     <div class="reminder-info">
                         <div class="medication-name">Albuterol Inhaler</div>
@@ -4249,7 +4368,7 @@ textarea {
                         <i class="fas fa-trash" title="Delete"></i>
                     </div>
                 </div>
-                
+
                 <div class="reminder-settings">
                     <button class="btn btn-secondary"><i class="fas fa-bell"></i> Notification Settings</button>
                 </div>
@@ -4312,16 +4431,36 @@ textarea {
     </footer>
 
     <script>
+        // Function to ensure ingredients text is displayed
+        function forceDisplayIngredientsText() {
+            const rawTextElement = document.getElementById("raw-text");
+            const ingredientsTextElement = document.getElementById("ingredients-text");
+
+            if (rawTextElement && ingredientsTextElement) {
+                const rawText = rawTextElement.textContent;
+                if (rawText && rawText.trim() !== "") {
+                    ingredientsTextElement.textContent = rawText;
+                    console.log("Forced ingredients text display:", rawText);
+                }
+            }
+        }
+
+        // Call this function when the page loads
+        window.addEventListener('load', function() {
+            // Set a timer to check and force display after 2 seconds
+            setTimeout(forceDisplayIngredientsText, 2000);
+        });
+
         // Tab functionality
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 // Remove active class from all buttons and contents
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
+
                 // Add active class to clicked button
                 btn.classList.add('active');
-                
+
                 // Show corresponding content
                 const tabId = btn.getAttribute('data-tab');
                 document.getElementById(tabId).classList.add('active');
@@ -4349,7 +4488,7 @@ function showQuestion(index) {
     questions.forEach((q, i) => {
         q.style.display = i === index ? 'block' : 'none';
     });
-    
+
     updateNavigationButtons();
 }
 
@@ -4381,13 +4520,13 @@ document.querySelectorAll('.body-area').forEach(area => {
         document.querySelectorAll('.body-area').forEach(el => {
             el.classList.remove('selected');
         });
-        
+
         // Then select just this one
         this.classList.add('selected');
-        
+
         // Initialize the questions (this will show the symptoms question first)
         initializeQuestions();
-        
+
         // Optional: Store the selected value
         const selectedArea = this.getAttribute('data-area');
         console.log("Selected area:", selectedArea);
@@ -4420,24 +4559,24 @@ initializeQuestions();
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 // Remove active class from all nav links
                 document.querySelectorAll('.nav-link').forEach(el => {
                     el.classList.remove('active');
                 });
-                
+
                 // Add active class to clicked link
                 this.classList.add('active');
-                
+
                 // Hide all content sections
                 document.querySelectorAll('.content-section').forEach(section => {
                     section.classList.remove('active');
                 });
-                
+
                 // Show the selected section
                 const sectionId = this.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
-                
+
                 // Scroll to top of the section
                 document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
             });
@@ -4456,7 +4595,7 @@ initializeQuestions();
         fab.addEventListener('click', () => {
             chatBox.classList.toggle('active');
             fab.classList.remove('pulse');
-            
+
             if (chatBox.classList.contains('active')) {
                 // Focus input when chat opens
                 setTimeout(() => chatInput.focus(), 300);
@@ -4475,38 +4614,76 @@ initializeQuestions();
         function sendMessage() {
             const messageText = chatInput.value.trim();
             if (messageText === '') return;
-            
+
             // Add user message
             addMessage(messageText, 'user');
             chatInput.value = '';
-            
+
             // Show typing indicator
             typingIndicator.style.display = 'flex';
             chatBody.scrollTop = chatBody.scrollHeight;
-            
-            // Simulate bot response after delay
-            setTimeout(() => {
+
+            // Get the base URL from the current location
+            const baseUrl = window.location.protocol + "//" + window.location.host;
+            const apiUrl =
+                baseUrl === "http://localhost:8080"
+                ? "http://localhost:8000/api/chatbot/chat/" // Development environment
+                : "/api/chatbot/chat/"; // Production environment
+
+            console.log("Sending message to Chat API:", apiUrl);
+
+            // Call the backend API for Gemini-powered response
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: messageText })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide typing indicator
                 typingIndicator.style.display = 'none';
-                addMessage(getBotResponse(messageText), 'bot');
-            }, 1500);
+
+                // Add bot response to chat
+                if (data.status === 'success') {
+                    addMessage(data.reply, 'bot');
+                } else {
+                    throw new Error(data.message || 'Failed to get response');
+                }
+            })
+            .catch(error => {
+                console.error('Chat API error:', error);
+
+                // Hide typing indicator
+                typingIndicator.style.display = 'none';
+
+                // Add error message
+                addMessage("I'm sorry, I'm having trouble connecting to my knowledge base right now. Please try again later.", 'bot');
+            });
         }
 
         // Add message to chat
         function addMessage(text, sender) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            
+
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             contentDiv.textContent = text;
-            
+
             const timeDiv = document.createElement('div');
             timeDiv.className = 'message-time';
             timeDiv.textContent = getCurrentTime();
-            
+
             messageDiv.appendChild(contentDiv);
             messageDiv.appendChild(timeDiv);
-            
+
             chatBody.appendChild(messageDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
         }
@@ -4517,22 +4694,7 @@ initializeQuestions();
             return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
         }
 
-        // Simple bot response logic
-        function getBotResponse(userMessage) {
-            const lowerMsg = userMessage.toLowerCase();
-            
-            if (lowerMsg.includes('symptom') || lowerMsg.includes('feel')) {
-                return "Based on your symptoms, it might be helpful to check our symptom checker tool. Would you like me to guide you there?";
-            } else if (lowerMsg.includes('medication') || lowerMsg.includes('medicine')) {
-                return "I can provide information about common allergy medications. Are you looking for something specific like antihistamines or nasal sprays?";
-            } else if (lowerMsg.includes('pollen') || lowerMsg.includes('seasonal')) {
-                return "For pollen allergies, I recommend checking the local pollen alerts and considering antihistamines or nasal corticosteroids.";
-            } else if (lowerMsg.includes('emergency') || lowerMsg.includes('severe')) {
-                return "If you're experiencing severe symptoms like difficulty breathing or swelling, please seek emergency help immediately.";
-            } else {
-                return "I'm here to help with allergy-related questions. You can ask me about symptoms, treatments, or prevention strategies.";
-            }
-        }
+        // Bot response now comes from the Gemini AI API
 
         // Send message on button click or Enter key
         chatSendBtn.addEventListener('click', sendMessage);
@@ -4555,17 +4717,17 @@ initializeQuestions();
                 e.target.classList.remove('valid-input');
             }
         });
-       
+
         document.querySelectorAll('.body-area').forEach(area => {
             area.addEventListener('click', function() {
                 // First remove selection from all other areas
                 document.querySelectorAll('.body-area').forEach(el => {
                     el.classList.remove('selected');
                 });
-                
+
                 // Then select just this one
                 this.classList.add('selected');
-                
+
                 // Optional: Store the selected value
                 const selectedArea = this.getAttribute('data-area');
                 console.log("Selected area:", selectedArea);
@@ -4645,17 +4807,17 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
-    
+
     // In a real app, you would validate and send to your backend
     console.log('Login attempt with:', email, password);
-    
+
     // Simulate successful login
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userData', JSON.stringify({
         email: email,
         name: email.split('@')[0] // Use the part before @ as name
     }));
-    
+
     loginModal.style.display = 'none';
     checkAuthStatus();
     showSuccessMessage('Logged in successfully!');
@@ -4668,23 +4830,23 @@ document.getElementById('signup-form').addEventListener('submit', (e) => {
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
     const confirmPassword = document.getElementById('signup-confirm').value;
-    
+
     // Simple validation
     if (password !== confirmPassword) {
         alert('Passwords do not match!');
         return;
     }
-    
+
     // In a real app, you would send this to your backend
     console.log('Signup with:', name, email, password);
-    
+
     // Simulate successful signup and login
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userData', JSON.stringify({
         name: name,
         email: email
     }));
-    
+
     signupModal.style.display = 'none';
     checkAuthStatus();
     showSuccessMessage('Account created successfully!');
@@ -4726,24 +4888,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const ingredientsText = document.getElementById('ingredients-text');
     const allergyMatches = document.getElementById('allergy-matches');
     const scanAgainBtn = document.getElementById('scan-again');
-    
+
     let stream = null;
-    
+
     // Sample user allergies (replace with your actual user data)
     const userAllergies = [
         'peanuts', 'tree nuts', 'dairy', 'gluten', 'soy', 'eggs', 'shellfish'
     ];
-    
+
     // Start camera scanner
     startScannerBtn.addEventListener('click', async function() {
         try {
             scannerLoading.style.display = 'block';
             scannerPlaceholder.style.display = 'none';
-            
-            stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { facingMode: 'environment' } 
+
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: 'environment' }
             });
-            
+
             scannerVideo.srcObject = stream;
             scannerVideo.style.display = 'block';
             startScannerBtn.textContent = 'Capture Image';
@@ -4756,17 +4918,17 @@ document.addEventListener('DOMContentLoaded', function() {
             scannerPlaceholder.style.display = 'flex';
         }
     });
-    
+
     // Upload image alternative
     uploadImageBtn.addEventListener('click', function() {
         fileInput.click();
     });
-    
+
     fileInput.addEventListener('change', function(e) {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const reader = new FileReader();
-            
+
             reader.onload = function(event) {
                 scannerVideo.style.display = 'none';
                 scannerPlaceholder.style.display = 'none';
@@ -4781,63 +4943,63 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 img.src = event.target.result;
             };
-            
+
             reader.readAsDataURL(file);
         }
     });
-    
+
     // Capture image from camera
     function captureImage() {
         scannerCanvas.width = scannerVideo.videoWidth;
         scannerCanvas.height = scannerVideo.videoHeight;
         const ctx = scannerCanvas.getContext('2d');
         ctx.drawImage(scannerVideo, 0, 0, scannerCanvas.width, scannerCanvas.height);
-        
+
         // Stop camera stream
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
-        
+
         scannerVideo.style.display = 'none';
         scannerCanvas.style.display = 'block';
         startScannerBtn.style.display = 'none';
-        
+
         processImage(scannerCanvas);
     }
-    
+
     // Process image with OCR
     function processImage(canvas) {
         showLoading(true);
-        
+
         // Simulate OCR processing (replace with actual API call)
         setTimeout(() => {
             const simulatedText = `
-            Ingredients: Enriched flour (wheat flour, niacin, reduced iron, 
-            thiamin mononitrate, riboflavin, folic acid), peanuts, sugar, 
-            palm oil, high fructose corn syrup, salt, whey (milk), soy lecithin, 
+            Ingredients: Enriched flour (wheat flour, niacin, reduced iron,
+            thiamin mononitrate, riboflavin, folic acid), peanuts, sugar,
+            palm oil, high fructose corn syrup, salt, whey (milk), soy lecithin,
             baking soda, artificial flavor.
             `;
-            
+
             ingredientsText.textContent = simulatedText;
             checkForAllergens(simulatedText);
             scanResults.style.display = 'block';
             showLoading(false);
         }, 2000);
     }
-    
+
     // Check for allergen matches
     function checkForAllergens(text) {
         const lowerText = text.toLowerCase();
         const foundAllergens = [];
-        
+
         userAllergies.forEach(allergen => {
             if (lowerText.includes(allergen.toLowerCase())) {
                 foundAllergens.push(allergen);
             }
         });
-        
+
         if (foundAllergens.length > 0) {
-            allergyMatches.innerHTML = foundAllergens.map(allergen => 
+            allergyMatches.innerHTML = foundAllergens.map(allergen =>
                 `<div class="allergy-match">
                     <i class="fas fa-exclamation-triangle"></i> ${allergen}
                 </div>`
@@ -4845,13 +5007,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             allergyMatches.innerHTML = `
                 <div class="no-allergies">
-                    <i class="fas fa-check-circle"></i> 
+                    <i class="fas fa-check-circle"></i>
                     No allergens detected based on your profile.
                 </div>
             `;
         }
     }
-    
+
     function showLoading(show) {
         if (show) {
             scannerLoading.style.display = 'block';
@@ -4859,7 +5021,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scannerLoading.style.display = 'none';
         }
     }
-    
+
     // Scan again button
     scanAgainBtn.addEventListener('click', function() {
         scanResults.style.display = 'none';
@@ -4886,12 +5048,12 @@ document.getElementById('symptom-filter').addEventListener('change', function() 
 document.getElementById('find-doctors-btn').addEventListener('click', function() {
     const location = document.getElementById('location-input').value.trim();
     const distance = document.getElementById('distance-select').value;
-    
+
     if (location === '') {
         alert('Please enter a location');
         return;
     }
-    
+
     // In a real app, this would call a location API
     showNearbyDoctors(location, distance);
 });
@@ -4900,7 +5062,7 @@ document.getElementById('use-current-location').addEventListener('click', functi
     // Simulate getting current location
     document.getElementById('location-input').value = 'Current Location';
     showLoading(true);
-    
+
     setTimeout(() => {
         showLoading(false);
         showNearbyDoctors('New York, NY', document.getElementById('distance-select').value);
@@ -4910,7 +5072,7 @@ document.getElementById('use-current-location').addEventListener('click', functi
 function showNearbyDoctors(location, distance) {
     document.getElementById('results-location').textContent = `in ${location} (within ${distance} miles)`;
     document.getElementById('nearby-results').style.display = 'block';
-    
+
     // Scroll to results
     document.getElementById('nearby-results').scrollIntoView({ behavior: 'smooth' });
 }
@@ -4931,40 +5093,40 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.medication-tabs .tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const tabId = btn.getAttribute('data-tab');
-            
+
             // Remove active class from all buttons and contents
             document.querySelectorAll('.medication-tabs .tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.medication-tabs .tab-content').forEach(c => c.classList.remove('active'));
-            
+
             // Add active class to clicked button and corresponding content
             btn.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         });
     });
-    
+
     // Add medication modal
     const addMedBtn = document.getElementById('add-medication-btn');
     const addMedModal = document.getElementById('add-med-modal');
     const closeModal = document.querySelector('#add-med-modal .close-modal');
-    
+
     addMedBtn.addEventListener('click', () => {
         addMedModal.style.display = 'block';
     });
-    
+
     closeModal.addEventListener('click', () => {
         addMedModal.style.display = 'none';
     });
-    
+
     window.addEventListener('click', (e) => {
         if (e.target === addMedModal) {
             addMedModal.style.display = 'none';
         }
     });
-    
+
     // Form submission
     document.getElementById('medication-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         // Get form values
         const name = document.getElementById('med-name').value;
         const type = document.getElementById('med-type').value;
@@ -4972,7 +5134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const schedule = document.getElementById('med-schedule').value;
         const startDate = document.getElementById('med-start').value;
         const notes = document.getElementById('med-notes').value;
-        
+
         // Create new medication card
         const medCard = document.createElement('div');
         medCard.className = 'medication-card';
@@ -4994,35 +5156,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        
+
         // Add to list
         document.getElementById('current-medications').appendChild(medCard);
-        
+
         // Reset form and close modal
         this.reset();
         addMedModal.style.display = 'none';
-        
+
         // Show success message
         showSuccessMessage('Medication added successfully!');
-        
+
         // Add event listeners to new buttons
         addMedicationEventListeners(medCard);
     });
-    
+
     // Add event listeners to existing medication cards
     document.querySelectorAll('.medication-card').forEach(card => {
         addMedicationEventListeners(card);
     });
-    
+
     // Search medications
+    document.getElementById('med-search').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const results = document.querySelectorAll('.medication-result-card');
+
+        results.forEach(result => {
+            const name = result.querySelector('.medication-details h4').textContent.toLowerCase();
+            if (name.includes(query)) {
+                result.style.display = 'block';
+            } else {
+                result.style.display = 'none';
+            }
+        });
+    });
+});
+// Medication API Search
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('medication-search');
+    const searchButton = document.getElementById('medication-search-button');
+    const resultsContainer = document.getElementById('medication-results');
+
+    searchButton.addEventListener('click', function() {
+        const medicationName = searchInput.value.trim();
+        if (medicationName) {
+            searchMedication(medicationName, resultsContainer);
+        } else {
+            alert('Please enter a medication name');
+        }
+    });
+});
+    </script>
     document.getElementById('search-meds').addEventListener('click', searchMedications);
     document.getElementById('med-search').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') searchMedications();
     });
-    
+
     // Apply filters
     document.getElementById('apply-filters').addEventListener('click', searchMedications);
-    
+
     // Check interactions
     document.getElementById('check-interactions').addEventListener('click', checkInteractions);
 });
@@ -5032,7 +5224,7 @@ function addMedicationEventListeners(card) {
     card.querySelector('.edit-med').addEventListener('click', function() {
         alert('Edit functionality would go here');
     });
-    
+
     // Delete button
     card.querySelector('.delete-med').addEventListener('click', function() {
         if (confirm('Are you sure you want to delete this medication?')) {
@@ -5064,56 +5256,27 @@ function searchMedications() {
     const searchTerm = document.getElementById('med-search').value.toLowerCase();
     const typeFilter = document.getElementById('med-type').value;
     const priceFilter = document.getElementById('med-price').value;
-    
+
     // In a real app, this would call an API
     // Here we just simulate filtering
     document.querySelectorAll('.medication-result-card').forEach(card => {
         const name = card.querySelector('h4').textContent.toLowerCase();
         const type = card.querySelector('.med-type').textContent.toLowerCase();
         const price = card.querySelector('.med-meta span:first-child').textContent;
-        
+
         const matchesSearch = name.includes(searchTerm) || searchTerm === '';
         const matchesType = type.includes(typeFilter) || typeFilter === '';
-        const matchesPrice = 
+        const matchesPrice =
             (priceFilter === 'low' && price.includes('$15')) ||
             (priceFilter === 'medium' && price.includes('$20')) ||
             (priceFilter === 'high' && price.includes('$50')) ||
             priceFilter === '';
-        
+
         card.style.display = matchesSearch && matchesType && matchesPrice ? 'flex' : 'none';
     });
 }
 
-function checkInteractions() {
-    const med1 = document.getElementById('med1').value;
-    const med2 = document.getElementById('med2').value;
-    
-    if (!med1 || !med2) {
-        alert('Please select two medications to check');
-        return;
-    }
-    
-    // Simulate interaction check
-    const noInteraction = document.querySelector('.no-interaction');
-    const interactionWarning = document.querySelector('.interaction-warning');
-    
-    // Hide both initially
-    noInteraction.style.display = 'none';
-    interactionWarning.style.display = 'none';
-    
-    // Simulate API call delay
-    setTimeout(() => {
-        // This is a simulation - in a real app you'd check against a database
-        if ((med1 === 'cetirizine' && med2 === 'diphenhydramine') || 
-            (med2 === 'cetirizine' && med1 === 'diphenhydramine')) {
-            // Show warning for this combination
-            interactionWarning.style.display = 'flex';
-        } else {
-            // Show no interaction message
-            noInteraction.style.display = 'flex';
-        }
-    }, 800);
-}
+// Drug interactions functionality moved to drug-interactions.js
 
 function showSuccessMessage(message) {
     const successMsg = document.querySelector('.success-message');
@@ -5132,7 +5295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         severity: 'all',
         symptom: 'all'
     };
-    
+
     // DOM Elements
     const entriesContainer = document.getElementById('diary-entries-container');
     const noEntriesMessage = document.getElementById('no-entries-message');
@@ -5177,13 +5340,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const topSymptomEl = document.getElementById('top-symptom');
     const topTriggerEl = document.getElementById('top-trigger');
     const statsPeriodLabel = document.getElementById('stats-period-label');
-    
+
     // Initialize Chart.js if available
     let severityChart, symptomsChart;
-    
+
     // Load entries on page load
     loadEntries();
-    
+
     // Event Listeners
     addEntryBtn.addEventListener('click', openNewEntryModal);
     viewStatsBtn.addEventListener('click', showStatisticsView);
@@ -5198,7 +5361,7 @@ document.addEventListener('DOMContentLoaded', function() {
     cancelMedBtn.addEventListener('click', closeMedicationModal);
     confirmExportBtn.addEventListener('click', exportDiary);
     cancelExportBtn.addEventListener('click', closeExportModal);
-    
+
     // Symptom checkboxes
     document.querySelectorAll('.symptoms-checkboxes input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
@@ -5209,11 +5372,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Functions
     function loadEntries() {
         const filteredEntries = filterEntries(entries);
-        
+
         if (filteredEntries.length === 0) {
             noEntriesMessage.style.display = 'block';
             entriesContainer.innerHTML = '';
@@ -5221,69 +5384,69 @@ document.addEventListener('DOMContentLoaded', function() {
             noEntriesMessage.style.display = 'none';
             renderEntries(filteredEntries);
         }
-        
+
         updateEntriesSummary(filteredEntries);
     }
-    
+
     function filterEntries(entries) {
         const now = new Date();
         let filtered = [...entries];
-        
+
         // Filter by time period
         if (currentFilters.timePeriod !== 'all') {
             const days = parseInt(currentFilters.timePeriod);
             const cutoffDate = new Date(now.setDate(now.getDate() - days));
-            
+
             filtered = filtered.filter(entry => {
                 const entryDate = new Date(entry.date);
                 return entryDate >= cutoffDate;
             });
         }
-        
+
         // Filter by severity
         if (currentFilters.severity !== 'all') {
             filtered = filtered.filter(entry => entry.severity === currentFilters.severity);
         }
-        
+
         // Filter by symptom
         if (currentFilters.symptom !== 'all') {
             filtered = filtered.filter(entry => {
-                return entry.symptoms.includes(currentFilters.symptom) || 
+                return entry.symptoms.includes(currentFilters.symptom) ||
                       (currentFilters.symptom === 'other' && entry.symptoms.includes('other'));
             });
         }
-        
+
         return filtered;
     }
-    
+
     function renderEntries(entries) {
         entriesContainer.innerHTML = '';
-        
+
         // Sort by date (newest first)
         entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
+
         entries.forEach(entry => {
             const entryEl = document.createElement('div');
             entryEl.className = 'diary-entry';
             if (isToday(new Date(entry.date))) {
                 entryEl.classList.add('current');
             }
-            
+
             const formattedDate = formatEntryDate(new Date(entry.date));
             const severityClass = `severity-${entry.severity}`;
-            
+
             // Create symptoms tags
             const symptomsTags = entry.symptoms.map(symptom => {
                 let displayText = symptom;
                 if (symptom === 'other' && entry.otherSymptom) {
                     displayText = entry.otherSymptom;
                 }
-                
+
                 return `<span class="symptom-tag ${symptom}">
                     <i class="fas fa-${getSymptomIcon(symptom)}"></i> ${displayText}
                 </span>`;
             }).join('');
-            
+
             // Create medications list
             const medicationsList = entry.medications.map(med => {
                 return `<div class="medication-item ${med.isEmergency ? 'emergency' : ''}">
@@ -5292,7 +5455,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="medication-time">${med.time}</span>
                 </div>`;
             }).join('');
-            
+
             entryEl.innerHTML = `
                 <div class="entry-header">
                     <div class="entry-date">
@@ -5300,45 +5463,45 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="date-full">${formattedDate.full}</div>
                     </div>
                     <div class="entry-severity ${entry.severity}">
-                        <i class="fas fa-thermometer-${getThermometerIcon(entry.severity)}"></i> 
+                        <i class="fas fa-thermometer-${getThermometerIcon(entry.severity)}"></i>
                         ${capitalizeFirstLetter(entry.severity)}
                     </div>
                 </div>
-                
+
                 <div class="entry-content">
                     <div class="symptoms-list">
                         ${symptomsTags}
                     </div>
-                    
+
                     ${entry.triggers ? `
                     <div class="entry-triggers">
                         <div class="trigger-label">Potential Triggers:</div>
-                        ${entry.triggers.split(',').map(trigger => 
+                        ${entry.triggers.split(',').map(trigger =>
                             `<span class="trigger-item">${trigger.trim()}</span>`
                         ).join('')}
                     </div>
                     ` : ''}
-                    
+
                     ${entry.location ? `
                     <div class="entry-location">
                         <div class="location-label">Location:</div>
                         <div class="location-value">${entry.location}</div>
                     </div>
                     ` : ''}
-                    
+
                     ${entry.notes ? `
                     <div class="entry-notes">
                         <p>${entry.notes}</p>
                     </div>
                     ` : ''}
-                    
+
                     ${entry.medications.length > 0 ? `
                     <div class="entry-medications">
                         ${medicationsList}
                     </div>
                     ` : ''}
                 </div>
-                
+
                 <div class="entry-actions">
                     <button class="btn btn-outline btn-sm edit-btn" data-id="${entry.id}">
                         <i class="fas fa-edit"></i> Edit
@@ -5348,10 +5511,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </button>
                 </div>
             `;
-            
+
             entriesContainer.appendChild(entryEl);
         });
-        
+
         // Add event listeners to edit/delete buttons
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -5359,7 +5522,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 editEntry(entryId);
             });
         });
-        
+
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const entryId = this.getAttribute('data-id');
@@ -5367,10 +5530,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
+
     function updateEntriesSummary(entries) {
         entriesCount.textContent = `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}`;
-        
+
         let periodText = '';
         switch(currentFilters.timePeriod) {
             case '7':
@@ -5391,91 +5554,91 @@ document.addEventListener('DOMContentLoaded', function() {
             default:
                 periodText = '(Custom range)';
         }
-        
+
         entriesPeriod.textContent = periodText;
     }
-    
+
     function openNewEntryModal() {
         modalTitle.innerHTML = '<i class="fas fa-book-medical"></i> New Diary Entry';
         entryIdInput.value = '';
         entryForm.reset();
         medicationsList.innerHTML = '';
-        
+
         // Set default date/time to now
         const now = new Date();
         const timezoneOffset = now.getTimezoneOffset() * 60000;
         const localISOTime = (new Date(now - timezoneOffset)).toISOString().slice(0, 16);
         entryDateInput.value = localISOTime;
-        
+
         // Reset symptom checkboxes
         document.querySelectorAll('.symptoms-checkboxes input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false;
         });
         document.getElementById('symptom-other-text').style.display = 'none';
-        
+
         entryModal.style.display = 'block';
     }
-    
+
     function editEntry(entryId) {
         const entry = entries.find(e => e.id === entryId);
         if (!entry) return;
-        
+
         modalTitle.innerHTML = '<i class="fas fa-edit"></i> Edit Diary Entry';
         entryIdInput.value = entry.id;
-        
+
         // Set form values
         const entryDate = new Date(entry.date);
         const timezoneOffset = entryDate.getTimezoneOffset() * 60000;
         const localISOTime = (new Date(entryDate - timezoneOffset)).toISOString().slice(0, 16);
         entryDateInput.value = localISOTime;
-        
+
         entrySeveritySelect.value = entry.severity;
         entryTriggersInput.value = entry.triggers || '';
         entryLocationInput.value = entry.location || '';
         entryNotesTextarea.value = entry.notes || '';
-        
+
         // Set symptom checkboxes
         document.querySelectorAll('.symptoms-checkboxes input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = entry.symptoms.includes(checkbox.value);
         });
-        
+
         if (entry.symptoms.includes('other') && entry.otherSymptom) {
             document.getElementById('symptom-other-text').style.display = 'block';
             document.getElementById('symptom-other-text').value = entry.otherSymptom;
         } else {
             document.getElementById('symptom-other-text').style.display = 'none';
         }
-        
+
         // Set medications
         medicationsList.innerHTML = '';
         entry.medications.forEach(med => {
             addMedicationToDOM(med);
         });
-        
+
         entryModal.style.display = 'block';
     }
-    
+
     function saveEntry(e) {
         e.preventDefault();
-        
+
         const entryId = entryIdInput.value;
         const date = entryDateInput.value;
         const severity = entrySeveritySelect.value;
         const triggers = entryTriggersInput.value;
         const location = entryLocationInput.value;
         const notes = entryNotesTextarea.value;
-        
+
         // Get selected symptoms
         const symptoms = [];
         document.querySelectorAll('.symptoms-checkboxes input[type="checkbox"]:checked').forEach(checkbox => {
             symptoms.push(checkbox.value);
         });
-        
+
         let otherSymptom = '';
         if (symptoms.includes('other')) {
             otherSymptom = document.getElementById('symptom-other-text').value;
         }
-        
+
         // Get medications
         const medications = [];
         document.querySelectorAll('.medication-entry').forEach(medEl => {
@@ -5489,7 +5652,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: medEl.getAttribute('data-type')
             });
         });
-        
+
         const entryData = {
             id: entryId || generateId(),
             date,
@@ -5500,11 +5663,11 @@ document.addEventListener('DOMContentLoaded', function() {
             location,
             notes,
             medications,
-            createdAt: entryId ? 
-                entries.find(e => e.id === entryId).createdAt : 
+            createdAt: entryId ?
+                entries.find(e => e.id === entryId).createdAt :
                 new Date().toISOString()
         };
-        
+
         if (entryId) {
             // Update existing entry
             const index = entries.findIndex(e => e.id === entryId);
@@ -5513,14 +5676,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add new entry
             entries.unshift(entryData);
         }
-        
+
         saveEntries();
         closeEntryModal();
         loadEntries();
-        
+
         showSuccessMessage(`Entry ${entryId ? 'updated' : 'added'} successfully!`);
     }
-    
+
     function deleteEntry(entryId) {
         if (confirm('Are you sure you want to delete this entry?')) {
             entries = entries.filter(entry => entry.id !== entryId);
@@ -5529,24 +5692,24 @@ document.addEventListener('DOMContentLoaded', function() {
             showSuccessMessage('Entry deleted successfully!');
         }
     }
-    
+
     function openMedicationModal() {
         medicationForm.reset();
         medicationModal.style.display = 'block';
     }
-    
+
     function closeMedicationModal() {
         medicationModal.style.display = 'none';
     }
-    
+
     function addMedicationToEntry(e) {
         e.preventDefault();
-        
+
         const name = medNameInput.value;
         const dosage = medDosageInput.value;
         const time = medTimeInput.value;
         const effectiveness = medEffectivenessSelect.value;
-        
+
         // Simple type detection (in a real app, this would be more sophisticated)
         let type = 'other';
         if (name.toLowerCase().includes('epi') || name.toLowerCase().includes('pen')) {
@@ -5560,9 +5723,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (name.toLowerCase().includes('tab') || name.toLowerCase().includes('cap')) {
             type = 'antihistamine';
         }
-        
+
         const isEmergency = type === 'emergency';
-        
+
         const medication = {
             id: generateId(),
             name,
@@ -5572,11 +5735,11 @@ document.addEventListener('DOMContentLoaded', function() {
             isEmergency,
             type
         };
-        
+
         addMedicationToDOM(medication);
         closeMedicationModal();
     }
-    
+
     function addMedicationToDOM(medication) {
         const medEl = document.createElement('div');
         medEl.className = 'medication-entry';
@@ -5586,7 +5749,7 @@ document.addEventListener('DOMContentLoaded', function() {
         medEl.setAttribute('data-effectiveness', medication.effectiveness);
         medEl.setAttribute('data-emergency', medication.isEmergency);
         medEl.setAttribute('data-type', medication.type);
-        
+
         medEl.innerHTML = `
             <div class="medication-entry-name">${medication.name} (${medication.dosage})</div>
             <div class="medication-entry-actions">
@@ -5598,9 +5761,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        
+
         medicationsList.appendChild(medEl);
-        
+
         // Add event listeners
         medEl.querySelector('.edit-med-btn').addEventListener('click', function() {
             // Populate medication form with existing data
@@ -5608,62 +5771,62 @@ document.addEventListener('DOMContentLoaded', function() {
             medDosageInput.value = medication.dosage;
             medTimeInput.value = medication.time;
             medEffectivenessSelect.value = medication.effectiveness;
-            
+
             // Remove this medication entry
             medEl.remove();
-            
+
             // Open medication modal
             medicationModal.style.display = 'block';
         });
-        
+
         medEl.querySelector('.delete-med-btn').addEventListener('click', function() {
             medEl.remove();
         });
     }
-    
+
     function closeEntryModal() {
         entryModal.style.display = 'none';
     }
-    
+
     function applyFilters() {
         currentFilters = {
             timePeriod: timeFilter.value,
             severity: severityFilter.value,
             symptom: symptomFilter.value
         };
-        
+
         loadEntries();
     }
-    
+
     function resetFilters() {
         timeFilter.value = '30';
         severityFilter.value = 'all';
         symptomFilter.value = 'all';
-        
+
         currentFilters = {
             timePeriod: '30',
             severity: 'all',
             symptom: 'all'
         };
-        
+
         loadEntries();
     }
-    
+
     function showStatisticsView() {
         entriesView.style.display = 'none';
         statisticsView.style.display = 'block';
-        
+
         updateStatistics();
     }
-    
+
     function showEntriesView() {
         statisticsView.style.display = 'none';
         entriesView.style.display = 'block';
     }
-    
+
     function updateStatistics() {
         const filteredEntries = filterEntries(entries);
-        
+
         // Update stats period label
         let periodText = '';
         switch(currentFilters.timePeriod) {
@@ -5686,22 +5849,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 periodText = 'Custom Range';
         }
         statsPeriodLabel.textContent = periodText;
-        
+
         // Basic stats
         totalEntriesEl.textContent = filteredEntries.length;
-        
+
         // Average severity (convert to 1-3 scale: mild=1, moderate=2, severe=3)
         if (filteredEntries.length > 0) {
             const severitySum = filteredEntries.reduce((sum, entry) => {
                 return sum + (entry.severity === 'mild' ? 1 : entry.severity === 'moderate' ? 2 : 3);
             }, 0);
-            
+
             const avgSeverity = (severitySum / filteredEntries.length).toFixed(1);
             avgSeverityEl.textContent = avgSeverity;
         } else {
             avgSeverityEl.textContent = '0';
         }
-        
+
         // Most common symptom
         if (filteredEntries.length > 0) {
             const symptomCounts = {};
@@ -5710,24 +5873,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     symptomCounts[symptom] = (symptomCounts[symptom] || 0) + 1;
                 });
             });
-            
+
             let topSymptom = '';
             let maxCount = 0;
-            
+
             for (const [symptom, count] of Object.entries(symptomCounts)) {
                 if (count > maxCount) {
                     maxCount = count;
-                    topSymptom = symptom === 'other' ? 
-                        'Various' : 
+                    topSymptom = symptom === 'other' ?
+                        'Various' :
                         capitalizeFirstLetter(symptom.replace('-', ' '));
                 }
             }
-            
+
             topSymptomEl.textContent = topSymptom;
         } else {
             topSymptomEl.textContent = '-';
         }
-        
+
         // Most common trigger
         if (filteredEntries.length > 0) {
             const triggerCounts = {};
@@ -5741,36 +5904,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             });
-            
+
             let topTrigger = '';
             let maxCount = 0;
-            
+
             for (const [trigger, count] of Object.entries(triggerCounts)) {
                 if (count > maxCount) {
                     maxCount = count;
                     topTrigger = capitalizeFirstLetter(trigger);
                 }
             }
-            
+
             topTriggerEl.textContent = topTrigger || 'Unknown';
         } else {
             topTriggerEl.textContent = '-';
         }
-        
+
         // Update charts if Chart.js is available
         if (typeof Chart !== 'undefined') {
             updateCharts(filteredEntries);
         }
     }
-    
+
     function updateCharts(entries) {
         // Severity over time chart
         const severityData = groupEntriesByDate(entries);
-        
+
         if (severityChart) {
             severityChart.destroy();
         }
-        
+
         const severityCtx = document.getElementById('severity-chart').getContext('2d');
         severityChart = new Chart(severityCtx, {
             type: 'line',
@@ -5818,14 +5981,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
+
         // Symptoms frequency chart
         const symptomData = countSymptoms(entries);
-        
+
         if (symptomsChart) {
             symptomsChart.destroy();
         }
-        
+
         const symptomsCtx = document.getElementById('symptoms-chart').getContext('2d');
         symptomsChart = new Chart(symptomsCtx, {
             type: 'bar',
@@ -5872,15 +6035,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     function groupEntriesByDate(entries) {
         // Group by date and calculate average severity for each day
         const grouped = {};
-        
+
         entries.forEach(entry => {
             const date = new Date(entry.date).toLocaleDateString();
             const severityValue = entry.severity === 'mild' ? 1 : entry.severity === 'moderate' ? 2 : 3;
-            
+
             if (!grouped[date]) {
                 grouped[date] = {
                     total: severityValue,
@@ -5891,17 +6054,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 grouped[date].count += 1;
             }
         });
-        
+
         // Convert to arrays for chart
         const dates = Object.keys(grouped).sort((a, b) => new Date(a) - new Date(b));
         const avgSeverity = dates.map(date => grouped[date].total / grouped[date].count);
-        
+
         return {
             dates,
             avgSeverity
         };
     }
-    
+
     function countSymptoms(entries) {
         const counts = {
             'sneezing': 0,
@@ -5912,49 +6075,49 @@ document.addEventListener('DOMContentLoaded', function() {
             'breathing': 0,
             'other': 0
         };
-        
+
         entries.forEach(entry => {
             entry.symptoms.forEach(symptom => {
                 counts[symptom]++;
             });
         });
-        
+
         // Filter out symptoms with 0 counts and format labels
         const labels = [];
         const countsData = [];
-        
+
         for (const [symptom, count] of Object.entries(counts)) {
             if (count > 0) {
                 labels.push(capitalizeFirstLetter(symptom.replace('-', ' ')));
                 countsData.push(count);
             }
         }
-        
+
         return {
             labels,
             counts: countsData
         };
     }
-    
+
     function openExportModal() {
         exportModal.style.display = 'block';
     }
-    
+
     function closeExportModal() {
         exportModal.style.display = 'none';
     }
-    
+
     function exportDiary() {
         const format = document.querySelector('input[name="export-format"]:checked').value;
         const range = document.getElementById('export-range').value;
-        
+
         let entriesToExport = [...entries];
-        
+
         // Filter by range if needed
         if (range !== 'all') {
             const now = new Date();
             let cutoffDate;
-            
+
             if (range === 'current') {
                 // Use current filters
                 entriesToExport = filterEntries(entries);
@@ -5965,25 +6128,25 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const days = parseInt(range);
                 cutoffDate = new Date(now.setDate(now.getDate() - days));
-                
+
                 entriesToExport = entriesToExport.filter(entry => {
                     const entryDate = new Date(entry.date);
                     return entryDate >= cutoffDate;
                 });
             }
         }
-        
+
         // Sort by date (newest first)
         entriesToExport.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
+
         // Prepare data for export
 const exportData = entriesToExport.map(entry => {
     return {
         Date: formatExportDate(new Date(entry.date)),
         Severity: capitalizeFirstLetter(entry.severity),
-        Symptoms: entry.symptoms.map(s => 
-            s === 'other' && entry.otherSymptom ? 
-            entry.otherSymptom : 
+        Symptoms: entry.symptoms.map(s =>
+            s === 'other' && entry.otherSymptom ?
+            entry.otherSymptom :
             capitalizeFirstLetter(s.replace('-', ' '))
         ).join(', '),
         Triggers: entry.triggers || '',
@@ -5992,7 +6155,7 @@ const exportData = entriesToExport.map(entry => {
         Medications: entry.medications.map(m => `${m.name} (${m.dosage}) at ${m.time}`).join('; ')
     };
 });
-        
+
         // Export based on format
         if (format === 'csv') {
             exportToCSV(exportData);
@@ -6002,19 +6165,19 @@ const exportData = entriesToExport.map(entry => {
             // Default to PDF
             exportToPDF(exportData);
         }
-        
+
         closeExportModal();
         showSuccessMessage('Export completed successfully!');
     }
-    
+
     function exportToCSV(data) {
         // Convert to CSV
         const headers = Object.keys(data[0] || {});
         const csvRows = [];
-        
+
         // Add header row
         csvRows.push(headers.join(','));
-        
+
         // Add data rows
         for (const row of data) {
             const values = headers.map(header => {
@@ -6023,12 +6186,12 @@ const exportData = entriesToExport.map(entry => {
             });
             csvRows.push(values.join(','));
         }
-        
+
         // Create CSV file
         const csvContent = csvRows.join('\n');
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
-        
+
         // Download
         const link = document.createElement('a');
         link.setAttribute('href', url);
@@ -6038,13 +6201,13 @@ const exportData = entriesToExport.map(entry => {
         link.click();
         document.body.removeChild(link);
     }
-    
+
     function exportToJSON(data) {
         // Create JSON file
         const jsonContent = JSON.stringify(data, null, 2);
         const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
-        
+
         // Download
         const link = document.createElement('a');
         link.setAttribute('href', url);
@@ -6054,27 +6217,27 @@ const exportData = entriesToExport.map(entry => {
         link.click();
         document.body.removeChild(link);
     }
-    
+
     function exportToPDF(data) {
         // In a real app, you would use a PDF library like jsPDF or make an API call
         // This is a simplified version that just shows what would happen
         alert('In a real app, this would generate a PDF with all your diary entries');
     }
-    
+
     function saveEntries() {
         localStorage.setItem('allergyDiaryEntries', JSON.stringify(entries));
     }
-    
+
     // Helper functions
     function generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
-    
+
     function formatEntryDate(date) {
         const today = new Date();
         const yesterday = new Date(today);
         yesterday.setDate(yesterday.getDate() - 1);
-        
+
         if (isSameDay(date, today)) {
             return {
                 day: 'Today',
@@ -6092,7 +6255,7 @@ const exportData = entriesToExport.map(entry => {
             };
         }
     }
-    
+
     function formatExportDate(date) {
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -6102,22 +6265,22 @@ const exportData = entriesToExport.map(entry => {
             minute: '2-digit'
         });
     }
-    
+
     function isSameDay(date1, date2) {
         return date1.getFullYear() === date2.getFullYear() &&
                date1.getMonth() === date2.getMonth() &&
                date1.getDate() === date2.getDate();
     }
-    
+
     function isToday(date) {
         const today = new Date();
         return isSameDay(date, today);
     }
-    
+
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    
+
     function getSymptomIcon(symptom) {
         const icons = {
             'sneezing': 'wind',
@@ -6130,7 +6293,7 @@ const exportData = entriesToExport.map(entry => {
         };
         return icons[symptom] || 'question-circle';
     }
-    
+
     function getMedIcon(type) {
         const icons = {
             'antihistamine': 'capsules',
@@ -6142,7 +6305,7 @@ const exportData = entriesToExport.map(entry => {
         };
         return icons[type] || 'pills';
     }
-    
+
     function getThermometerIcon(severity) {
         const icons = {
             'mild': 'quarter',
@@ -6151,7 +6314,7 @@ const exportData = entriesToExport.map(entry => {
         };
         return icons[severity] || 'quarter';
     }
-    
+
     function showSuccessMessage(message) {
         const successMsg = document.querySelector('.success-message');
         successMsg.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
@@ -6201,7 +6364,7 @@ function stopSearchRecording() {
   searchMicButton.classList.remove('recording');
   searchMicButton.innerHTML = '🎙️';
 }
-    
+
     // Initialize charts if Chart.js is loaded
     if (typeof Chart !== 'undefined') {
         updateStatistics();
@@ -6286,5 +6449,48 @@ function stopSearchRecording() {
     });
   }
 </script>
+
+<!-- Custom JavaScript files -->
+<script src="js/ocr-scanner.js"></script>
+<script src="js/chat-api.js"></script>
+<script src="js/medication-api.js"></script>
+<script src="js/symptom-diagnosis.js"></script>
+<script src="js/dietary-suggestions.js"></script>
+
+<!-- Direct script to ensure ingredients text is displayed -->
+<script>
+  // Function to directly update the ingredients text
+  function directUpdateIngredientsText() {
+    const rawTextElement = document.getElementById("raw-text");
+    const ingredientsTextElement = document.getElementById("ingredients-text");
+
+    if (rawTextElement && ingredientsTextElement) {
+      const rawText = rawTextElement.textContent;
+      if (rawText && rawText.trim() !== "") {
+        ingredientsTextElement.textContent = rawText;
+        console.log("Direct script updated ingredients text:", rawText);
+      }
+    }
+  }
+
+  // Set multiple timers to ensure the text is displayed
+  window.addEventListener('load', function() {
+    // Try immediately
+    directUpdateIngredientsText();
+
+    // Try after 1 second
+    setTimeout(directUpdateIngredientsText, 1000);
+
+    // Try after 3 seconds
+    setTimeout(directUpdateIngredientsText, 3000);
+  });
+
+  // Add a global function that can be called from the console
+  window.directUpdateIngredientsText = directUpdateIngredientsText;
+</script>
+<script src="js/allergy-alerts.js"></script>
+<script src="js/nearby-doctors.js"></script>
+<script src="js/drug-interactions.js"></script>
+
 </body>
 </html>

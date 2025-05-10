@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Allergy Alerts API with Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .checkbox-item input {
+            width: auto;
+            margin-right: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4A6FA5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button.secondary {
+            background-color: #6c757d;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .alert-card {
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .alert-card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .alert-icon {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        .severity {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .severity.high {
+            background-color: #ffdddd;
+            color: #cc0000;
+        }
+        .severity.moderate {
+            background-color: #ffffcc;
+            color: #cc7700;
+        }
+        .severity.low {
+            background-color: #ddffdd;
+            color: #007700;
+        }
+        .severity.varies {
+            background-color: #ddddff;
+            color: #0000cc;
+        }
+        .recommendations {
+            margin-top: 10px;
+        }
+        .recommendations h4 {
+            margin-bottom: 5px;
+        }
+        .location-info {
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .coordinates-container {
+            display: flex;
+            gap: 10px;
+        }
+        .coordinates-container .form-group {
+            flex: 1;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .location-status {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #e9f5ff;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Allergy Alerts API with Map</h1>
+    <div class="container">
+        <div id="map"></div>
+        
+        <div class="location-status" id="location-status">
+            <p><strong>Getting your location...</strong></p>
+        </div>
+        
+        <div class="button-group">
+            <button id="use-my-location-btn" type="button">Use My Location</button>
+            <button id="manual-location-btn" type="button" class="secondary">Enter Location Manually</button>
+        </div>
+        
+        <div class="coordinates-container">
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" placeholder="Enter latitude (e.g., 40.7128)" readonly>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" placeholder="Enter longitude (e.g., -74.0060)" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Select Your Allergies:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="pollen" value="pollen">
+                    <label for="pollen">Pollen</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="dust" value="dust">
+                    <label for="dust">Dust</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mold" value="mold">
+                    <label for="mold">Mold</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="pet" value="pet">
+                    <label for="pet">Pet Dander</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="food" value="food">
+                    <label for="food">Food</label>
+                </div>
+            </div>
+        </div>
+        <button id="get-alerts-btn" type="button">Get Allergy Alerts</button>
+        <div class="loading" id="loading">Loading allergy alerts...</div>
+        <div id="result-container"></div>
+    </div>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap" async defer></script>
+    
+    <script>
+        // Global variables
+        let map;
+        let marker;
+        let currentPosition = null;
+        
+        // Initialize the map
+        function initMap() {
+            // Default location (New York City)
+            const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+            
+            // Create the map
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: defaultLocation,
+                zoom: 12,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false
+            });
+            
+            // Create a marker for the location
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                title: 'Your Location',
+                draggable: false,
+                animation: google.maps.Animation.DROP
+            });
+            
+            // Try to get the user's location automatically
+            getUserLocation();
+            
+            // Add click event to the map to update location manually
+            map.addListener('click', function(event) {
+                if (document.getElementById('latitude').readOnly) {
+                    return; // Don't allow clicks if in automatic mode
+                }
+                
+                updateLocation(event.latLng.lat(), event.latLng.lng());
+                marker.setPosition(event.latLng);
+            });
+        }
+        
+        // Get the user's location using browser geolocation
+        function getUserLocation() {
+            const locationStatus = document.getElementById('location-status');
+            locationStatus.style.display = 'block';
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    // Success callback
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Update the map and form
+                        updateLocation(lat, lng);
+                        
+                        // Center the map on the user's location
+                        const userLocation = new google.maps.LatLng(lat, lng);
+                        map.setCenter(userLocation);
+                        marker.setPosition(userLocation);
+                        
+                        // Store the current position
+                        currentPosition = { lat, lng };
+                        
+                        // Hide the status message
+                        locationStatus.style.display = 'none';
+                    },
+                    // Error callback
+                    function(error) {
+                        console.error('Geolocation error:', error);
+                        locationStatus.innerHTML = `
+                            <p><strong>Error getting your location:</strong> ${error.message}</p>
+                            <p>Please enter your location manually or try again.</p>
+                        `;
+                        
+                        // Enable manual entry
+                        enableManualLocationEntry();
+                    }
+                );
+            } else {
+                locationStatus.innerHTML = `
+                    <p><strong>Geolocation is not supported by your browser.</strong></p>
+                    <p>Please enter your location manually.</p>
+                `;
+                
+                // Enable manual entry
+                enableManualLocationEntry();
+            }
+        }
+        
+        // Update the location inputs
+        function updateLocation(lat, lng) {
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lng.toFixed(6);
+        }
+        
+        // Enable manual location entry
+        function enableManualLocationEntry() {
+            const latInput = document.getElementById('latitude');
+            const lngInput = document.getElementById('longitude');
+            
+            latInput.readOnly = false;
+            lngInput.readOnly = false;
+            
+            // Make the marker draggable
+            marker.setDraggable(true);
+            
+            // Add drag event to the marker
+            marker.addListener('dragend', function() {
+                const position = marker.getPosition();
+                updateLocation(position.lat(), position.lng());
+            });
+            
+            // Update the manual button
+            document.getElementById('manual-location-btn').classList.remove('secondary');
+            document.getElementById('use-my-location-btn').classList.add('secondary');
+        }
+        
+        // Event listeners for the buttons
+        document.getElementById('use-my-location-btn').addEventListener('click', function() {
+            // Reset to automatic mode
+            document.getElementById('latitude').readOnly = true;
+            document.getElementById('longitude').readOnly = true;
+            marker.setDraggable(false);
+            
+            // Update button styles
+            this.classList.remove('secondary');
+            document.getElementById('manual-location-btn').classList.add('secondary');
+            
+            // Try to get the user's location again
+            getUserLocation();
+        });
+        
+        document.getElementById('manual-location-btn').addEventListener('click', function() {
+            // Enable manual entry
+            enableManualLocationEntry();
+            
+            // Update button styles
+            this.classList.remove('secondary');
+            document.getElementById('use-my-location-btn').classList.add('secondary');
+            
+            // Hide the status message
+            document.getElementById('location-status').style.display = 'none';
+        });
+        
+        // Get allergy alerts
+        document.getElementById('get-alerts-btn').addEventListener('click', async function() {
+            const latitude = document.getElementById('latitude').value.trim();
+            const longitude = document.getElementById('longitude').value.trim();
+            
+            // Get selected allergies
+            const allergies = [];
+            document.querySelectorAll('.checkbox-item input:checked').forEach(checkbox => {
+                allergies.push(checkbox.value);
+            });
+            
+            if (!latitude || !longitude) {
+                alert('Please enter latitude and longitude');
+                return;
+            }
+            
+            if (allergies.length === 0) {
+                alert('Please select at least one allergy');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const resultContainer = document.getElementById('result-container');
+            
+            loading.style.display = 'block';
+            resultContainer.innerHTML = '';
+
+            try {
+                const apiUrl = `http://localhost:8000/api/chatbot/allergy-alerts/?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}&allergies=${encodeURIComponent(allergies.join(','))}`;
+                
+                console.log("Sending request to Allergy Alerts API:", apiUrl);
+                
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Origin': 'http://localhost:8080'
+                    },
+                    mode: 'cors',
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    displayAllergyAlerts(data, resultContainer);
+                } else {
+                    resultContainer.innerHTML = `<div class="response">Error: ${data.message || 'Failed to get allergy alerts'}</div>`;
+                }
+            } catch (error) {
+                console.error('Allergy Alerts API error:', error);
+                resultContainer.innerHTML = `<div class="response">Error: ${error.message}</div>`;
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        function displayAllergyAlerts(data, container) {
+            let html = '';
+            
+            // Add location info
+            html += `
+                <div class="location-info">
+                    <h3>Location Information</h3>
+                    <p><strong>City:</strong> ${data.location.city}</p>
+                    <p><strong>Region:</strong> ${data.location.region}</p>
+                    <p><strong>Date:</strong> ${data.current_date}</p>
+                    <p><strong>Season:</strong> ${data.season}</p>
+                    <p><strong>Seasonal Allergens:</strong> ${data.seasonal_allergens.join(', ')}</p>
+                    <p><strong>General Info:</strong> ${data.general_info}</p>
+                </div>
+            `;
+            
+            // Add alerts
+            if (data.alerts && data.alerts.length > 0) {
+                html += '<h2>Current Allergy Alerts</h2>';
+                
+                data.alerts.forEach(alert => {
+                    const alertIcon = getAlertIcon(alert.type);
+                    const severityClass = getSeverityClass(alert.severity);
+                    
+                    html += `
+                        <div class="alert-card">
+                            <h3>
+                                <span class="alert-icon">${alertIcon}</span>
+                                ${formatAlertType(alert.type)}
+                                <span class="severity ${severityClass}">${alert.severity.charAt(0).toUpperCase() + alert.severity.slice(1)}</span>
+                            </h3>
+                            <p>${alert.description}</p>
+                            <div class="recommendations">
+                                <h4>Recommendations:</h4>
+                                <ul>
+                                    ${alert.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<div class="response">No allergy alerts found for your location and allergies.</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function getAlertIcon(type) {
+            switch (type) {
+                case 'pollen':
+                    return '🌼';
+                case 'mold':
+                    return '🍄';
+                case 'dust_mites':
+                    return '🏠';
+                case 'pet_dander':
+                    return '🐾';
+                default:
+                    return '⚠️';
+            }
+        }
+        
+        function getSeverityClass(severity) {
+            switch (severity.toLowerCase()) {
+                case 'high':
+                    return 'high';
+                case 'moderate':
+                    return 'moderate';
+                case 'low':
+                    return 'low';
+                case 'varies':
+                    return 'varies';
+                default:
+                    return '';
+            }
+        }
+        
+        function formatAlertType(type) {
+            switch (type) {
+                case 'pollen':
+                    return 'Pollen Alert';
+                case 'mold':
+                    return 'Mold Alert';
+                case 'dust_mites':
+                    return 'Dust Mites Alert';
+                case 'pet_dander':
+                    return 'Pet Dander Alert';
+                default:
+                    return type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ') + ' Alert';
+            }
+        }
+    </script>
+</body>
+</html>
