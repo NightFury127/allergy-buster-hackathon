@@ -1,0 +1,1 @@
+# Symptom API tests

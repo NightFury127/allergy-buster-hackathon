@@ -1,0 +1,6 @@
+django
+djangorestframework
+openai
+pillow
+mysqlclient
+django-cors-headers
