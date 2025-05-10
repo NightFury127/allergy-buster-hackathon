@@ -1,1 +1,0 @@
-// Symptom API logic
