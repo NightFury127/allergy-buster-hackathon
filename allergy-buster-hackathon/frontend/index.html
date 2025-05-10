@@ -6,8 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllergyBuster | Complete Allergy Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Your original CSS remains exactly the same */
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="AllergyBuster - Your complete allergy management solution. Scan products, track symptoms, get personalized recommendations, and find allergy-friendly options.">
+    <meta name="keywords" content="allergy, allergen, food allergy, medication, symptom tracker, OCR scanner">
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="AllergyBuster | Complete Allergy Management">
+    <meta property="og:description" content="Your complete allergy management solution. Scan products, track symptoms, get personalized recommendations.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:url" content="https://allergybuster.com">
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Removed inline styles, now using external CSS files -->
         /* Color Variables */
         :root {
             --primary: #4A6FA5;
@@ -3064,36 +3077,73 @@ textarea {
     </div>
 </div>
     <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-allergies"></i>
-                <h1>AllergyBuster</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
-                    <li><a href="#symptom-checker" class="nav-link" data-section="symptom-checker">Symptom Checker</a></li>
-                    <li><a href="#medications" class="nav-link" data-section="medications">Medications</a></li>
-                    <li><a href="#diary" class="nav-link" data-section="diary">Allergy Diary</a></li>
-                    <li><a href="#scanner" class="nav-link" data-section="scanner" id="scanner-nav">
-                        <i class="fas fa-camera"></i> Scanner
-                    </a></li>
-                    <li><a href="#telehealth" class="nav-link" data-section="telehealth">Telehealth</a></li>
-                </ul>
-                <div class="auth-buttons" id="auth-buttons">
-                    <button class="btn btn-outline" id="login-btn">Login</button>
-                    <button class="btn btn-primary" id="signup-btn">Sign Up</button>
+        <header class="header">
+            <div class="container header-container">
+                <div class="logo">
+                    <i class="fas fa-allergies logo-icon"></i>
+                    <h1 class="logo-text">AllergyBuster</h1>
                 </div>
-                <div class="user-profile" id="user-profile" style="display: none;">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <span id="username-display">User</span>
-                    <div class="user-dropdown">
-                        <a href="#"><i class="fas fa-user"></i> Profile</a>
-                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
-                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <button class="nav-toggle hide-on-desktop" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="nav" id="main-nav">
+                    <button class="nav-close hide-on-desktop" id="nav-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                                <i class="fas fa-home"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#symptom-checker" class="nav-link" data-section="symptom-checker">
+                                <i class="fas fa-stethoscope"></i> Symptom Checker
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#medications" class="nav-link" data-section="medications">
+                                <i class="fas fa-pills"></i> Medications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#diary" class="nav-link" data-section="diary">
+                                <i class="fas fa-book-medical"></i> Allergy Diary
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#scanner" class="nav-link" data-section="scanner" id="scanner-nav">
+                                <i class="fas fa-camera"></i> Scanner
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#telehealth" class="nav-link" data-section="telehealth">
+                                <i class="fas fa-user-md"></i> Telehealth
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="auth-buttons" id="auth-buttons">
+                        <button class="btn btn-outline" id="login-btn" type="button">Login</button>
+                        <button class="btn btn-primary" id="signup-btn" type="button">Sign Up</button>
                     </div>
-                </div>
-            </nav>
+                    <div class="user-profile" id="user-profile" style="display: none;">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <span class="user-name" id="username-display">User</span>
+                        <div class="user-dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i> Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <!-- Main Content Sections -->
@@ -6451,6 +6501,7 @@ function stopSearchRecording() {
 </script>
 
 <!-- Custom JavaScript files -->
+<script src="js/ui-enhancements.js"></script>
 <script src="js/ocr-scanner.js"></script>
 <script src="js/chat-api.js"></script>
 <script src="js/medication-api.js"></script>

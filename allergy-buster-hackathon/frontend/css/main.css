@@ -1,0 +1,342 @@
+/**
+ * AllergyBuster Main CSS
+ * Imports all component-specific CSS files and defines global styles
+ */
+
+/* Import Design System */
+@import url('design-system.css');
+
+/* Import Component Styles */
+@import url('navigation.css');
+@import url('scanner.css');
+@import url('chat.css');
+@import url('allergy-alerts.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-5) 0;
+}
+
+/* Page Transitions */
+.page-transition {
+  animation: fadeIn var(--transition-normal);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Section Styles */
+.section {
+  margin-bottom: var(--space-6);
+}
+
+.section-header {
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  color: var(--primary);
+  margin-bottom: var(--space-2);
+}
+
+.section-subtitle {
+  color: var(--dark-gray);
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary-transparent), var(--secondary-transparent));
+  padding: var(--space-6) 0;
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.hero-title {
+  font-size: var(--font-size-4xl);
+  color: var(--primary);
+  margin-bottom: var(--space-3);
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--dark);
+  max-width: 700px;
+  margin: 0 auto var(--space-5);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--light);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--light-gray);
+  margin-top: auto;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-5);
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.footer-logo-icon {
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+}
+
+.footer-logo-text {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.footer-description {
+  color: var(--dark-gray);
+  margin-bottom: var(--space-3);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.social-link:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.footer-column-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  color: var(--dark);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link {
+  margin-bottom: var(--space-2);
+}
+
+.footer-link a {
+  color: var(--dark-gray);
+  transition: color var(--transition-fast);
+}
+
+.footer-link a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--light-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.footer-copyright {
+  color: var(--dark-gray);
+  font-size: var(--font-size-sm);
+}
+
+.footer-legal {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.legal-link {
+  color: var(--dark-gray);
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.legal-link:hover {
+  color: var(--primary);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--light-gray);
+  margin-bottom: var(--space-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--dark-gray);
+  border-bottom: 3px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--primary);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn var(--transition-normal);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Loader */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-5);
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--light-gray);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Alerts */
+.alert {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.alert-icon {
+  font-size: var(--font-size-lg);
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.alert-message {
+  color: inherit;
+}
+
+.alert-success {
+  background-color: var(--success-transparent);
+  color: var(--success-dark);
+}
+
+.alert-warning {
+  background-color: var(--warning-transparent);
+  color: var(--warning-dark);
+}
+
+.alert-danger {
+  background-color: var(--danger-transparent);
+  color: var(--danger-dark);
+}
+
+.alert-info {
+  background-color: var(--info-transparent);
+  color: var(--info-dark);
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
