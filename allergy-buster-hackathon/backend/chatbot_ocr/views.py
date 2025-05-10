@@ -10,10 +10,19 @@ import pytesseract
 from PIL import Image
 import io
 import torch
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import ChatMessageSerializer
+import requests
 
 # Global variables for model and generator
 model = None
 generator = None
+
+# Load Mistral AI API key from APIKeys.txt
+with open(os.path.join(os.path.dirname(__file__), '..', 'core_api', 'APIKeys.txt'), 'r') as f:
+    mistral_api_key = f.read().strip().split(':')[1].strip()
 
 def initialize_model():
     """Initialize the Hugging Face model and generator."""
@@ -49,50 +58,37 @@ def test_env(request):
         'model_loaded': model_loaded
     })
 
-@csrf_exempt
-@require_http_methods(["POST"])
+@api_view(['POST'])
 def chat_api(request):
-    """Handle chat interactions using Hugging Face's model."""
-    try:
-        if not initialize_model():
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Failed to initialize the AI model'
-            }, status=500)
-
-        data = json.loads(request.body)
-        user_message = data.get('message', '')
-        
-        if not user_message:
-            return JsonResponse({
-                'status': 'error',
-                'message': 'No message provided'
-            }, status=400)
-        
-        # Generate response using the model
-        response = generator(user_message)[0]['generated_text']
-        
-        # Save the chat interaction
-        chat = ChatMessage.objects.create(
-            user_message=user_message,
-            ai_reply=response
-        )
-        
-        return JsonResponse({
-            'status': 'success',
-            'reply': response,
-            'chat_id': chat.id
-        })
-    except json.JSONDecodeError:
-        return JsonResponse({
-            'status': 'error',
-            'message': 'Invalid JSON data'
-        }, status=400)
-    except Exception as e:
-        return JsonResponse({
-            'status': 'error',
-            'message': str(e)
-        }, status=500)
+    user_message = request.data.get('message', '')
+    if not user_message:
+        return Response({'error': 'Message is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Call Mistral AI API for chat completions
+    headers = {
+        'Authorization': f'Bearer {mistral_api_key}',
+        'Content-Type': 'application/json'
+    }
+    data = {
+        'model': 'mistral-small',  # Specify the model to use
+        'messages': [{'role': 'user', 'content': user_message}],
+        'max_tokens': 100
+    }
+    response = requests.post('https://api.mistral.ai/v1/chat/completions', headers=headers, json=data)
+    
+    if response.status_code == 200:
+        ai_response = response.json().get('choices', [{}])[0].get('message', {}).get('content', 'No response from AI')
+    else:
+        ai_response = 'Error: Could not get response from Mistral AI'
+    
+    # Save the chat message
+    chat_message = ChatMessage.objects.create(
+        user=request.user,
+        message=user_message,
+        response=ai_response
+    )
+    serializer = ChatMessageSerializer(chat_message)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @csrf_exempt
 @require_http_methods(["POST"])
